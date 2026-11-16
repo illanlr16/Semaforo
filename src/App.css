@@ -1,0 +1,57 @@
+/* Contenedor principal del semáforo */
+.semaforo-caja {
+  width: 120px;
+  background-color: #222;
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  margin-left: 50px;
+}
+
+.luz {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  opacity: 0.25; /* Efecto apaga */
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.luz.rojo { background-color: #ff0000; }
+.luz.amarillo { background-color: #ffc107; }
+.luz.verde { background-color: #28a745; }
+
+.luz.rojo.encendido {
+  opacity: 1;
+  box-shadow: 0 0 20px #ff0000;
+}
+
+.luz.amarillo.encendido {
+  opacity: 1;
+  box-shadow: 0 0 20px #ffc107;
+}
+
+.luz.verde.encendido {
+  opacity: 1;
+  box-shadow: 0 0 20px #28a745;
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; box-shadow: 0 0 20px #ffc107; }
+  50% { opacity: 0.1; box-shadow: none; }
+}
+
+.luz.amarillo.parpadeo {
+  animation: parpadeo 0.8s infinite;
+}
+
+#root {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

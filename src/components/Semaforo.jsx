@@ -80,17 +80,28 @@ function Semaforo() {
     }, [state.luz, state.averia])
 
     return(
-        <div>
-            <div className='Semaforo'>
-                <span className={`Rojo ${state.luz === 'rojo' ? 'encendido' : ''}`}></span>
-                <span className={`Amarillo ${state.luz === 'amarillo' ? 'encendido' : ''}`}></span>
-                <span className={`Verde ${state.luz === 'verde' ? 'encendido' : ''}`}></span>
+        <div className="container min-vh-100 d-flex flex-column justify-content-center align-items-center ">
+            <h2 className="mb-3">Ciclos completados: <span className="badge bg-secondary">{state.ciclos}</span></h2>
+
+            {state.averia && <div className="alert alert-danger py-1 px-3 mb-3"> Semáforo averiado</div>}
+
+            <br />
+
+            <div className='semaforo-caja mb-4'>
+                <span className={`luz rojo ${state.luz === 'rojo' && !state.averia ? 'encendido' : ''}`}></span>
+                <span className={`luz amarillo ${state.averia ? 'parpadeo' : (state.luz === 'amarillo' ? 'encendido' : '')}`}></span>
+                <span className={`luz verde ${state.luz === 'verde' && !state.averia ? 'encendido' : ''}`}></span>
             </div>
 
-            <button onClick={() => dispatch({ type: 'AVANZAR'})}>Avanzar</button>
-            <button onClick={() => dispatch({ type: 'AVERIA'})}>Avería</button>
-            <button onClick={() => dispatch({ type: 'REPARAR'})}>Reparar</button>
-            <button onClick={() => dispatch({ type: 'RESET'})}>Resetear</button>
+            <br />
+
+            <div className="d-flex gap-2">
+                <button className="btn btn-primary" onClick={() => dispatch({ type: 'AVANZAR'})}>Avanzar</button>
+                <button className="btn btn-primary" onClick={() => dispatch({ type: 'AVERIA'})}>Avería</button>
+                <button className="btn btn-primary" onClick={() => dispatch({ type: 'REPARAR'})}>Reparar</button>
+                <button className="btn btn-primary" onClick={() => dispatch({ type: 'RESET'})}>Resetear</button>
+            </div>
+            
         </div>
     )
     
