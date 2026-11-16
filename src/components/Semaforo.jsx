@@ -35,14 +35,14 @@ const estadoInicial = {
                 case 'AVERIA':
                     return {
                         ...state,
-                        averiado:true,
+                        averia:true,
                         luz: 'amarillo'
                     }
                 case 'REPARAR':
                     return {
                         ...state,
                         luz:'rojo',
-                        averiado: false
+                        averia: false
                     }
 
                 case 'RESET':
@@ -55,6 +55,29 @@ const estadoInicial = {
 function Semaforo() {
 
     const [state, dispatch] = useReducer(semaforoLuces, estadoInicial)
+
+    useEffect(() => {
+        if(state.averia) return
+
+        let tiempo = 0
+        if(state.luz === 'rojo'){
+            tiempo = 4000
+        } 
+
+        if(state.luz === 'amarillo'){
+            tiempo = 1000
+        } 
+
+        if(state.luz === 'verde'){
+            tiempo = 3000
+        } 
+
+        const timer = setTimeout(() => {
+            dispatch({ type: 'AVANZAR' })
+        }, tiempo)
+
+        return () => clearTimeout(timer)
+    }, [state.luz, state.averia])
 
     return(
         <div>
